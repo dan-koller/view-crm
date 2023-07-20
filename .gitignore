@@ -14,4 +14,4 @@ obj/
 .DS_Store
 *.db
 *.db*
-/ViewBoard.sql
+*.sql
