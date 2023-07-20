@@ -4,6 +4,8 @@ using ViewBoard.WebApi.Repositories; // ITicketRepository, TicketRepository
 using Swashbuckle.AspNetCore.SwaggerUI;
 using Microsoft.AspNetCore.HttpLogging;
 
+var MyAllowSpecificOrigins = "_allowReactApp"; // CORS
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -37,6 +39,19 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<ITicketRepository, TicketRepository>();
 
+// Enable CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("https://localhost:5001",
+                                              "https://localhost:44440")
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+                      });
+});
+
 builder.Services.AddHttpLogging(options =>
 {
     options.LoggingFields = HttpLoggingFields.All;
@@ -64,6 +79,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 // app.UseHttpLogging(); // only for development
+
+app.UseCors(MyAllowSpecificOrigins);
 
 app.MapControllers();
 
