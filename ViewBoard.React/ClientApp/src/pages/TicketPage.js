@@ -2,31 +2,35 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import CategoriesContext from '../context'
+import authService from '../components/api-authorization/AuthorizeService'
 
 const TicketPage = ({ editMode }) => {
 
+    // TODO: Check if owner attribute needs to be added to the ticket model
     const [formData, setFormData] = useState({
+        owner: '',
         status: 'not started',
         progress: 0,
         timestamp: new Date().toISOString(),
-    })
-    const { categories, setCategories } = useContext(CategoriesContext)
+    });
 
-    const navigate = useNavigate()
-    let { id } = useParams()
+    const { categories, setCategories } = useContext(CategoriesContext);
+
+    const navigate = useNavigate();
+    let { id } = useParams();
 
     const handleChange = (e) => {
-        const value = e.target.value
-        const name = e.target.name
+        const value = e.target.value;
+        const name = e.target.name;
 
         setFormData((prevState) => ({
             ...prevState,
-            [name]: value,
+            [name]: value
         }))
     }
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         if (editMode) {
             try {
                 const response = await axios.put(`https://localhost:5002/api/ticket/${id}`, formData);
@@ -66,11 +70,22 @@ const TicketPage = ({ editMode }) => {
         if (editMode) {
             fetchData()
         }
+
+        // Get the user name from the auth service
+        async function fetchUserName() {
+            try {
+                const user = await Promise.resolve(authService.getUser());
+                const userName = user.name;
+                setFormData((prevFormData) => ({ ...prevFormData, owner: userName }));
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        fetchUserName();
+
     }, [])
 
-    //console.log('EDITcategories', categories)
-    //console.log('formData', formData.status)
-    //console.log('formData.status', formData.status === 'stuck')
     return (
         <div className="ticket">
             <h1>{editMode ? 'Update Your Ticket' : 'Create a Ticket'}</h1>
@@ -230,7 +245,7 @@ const TicketPage = ({ editMode }) => {
                         />
                         <div className="img-preview">
                             {formData.avatar && (
-                                <img src={formData.avatar} alt="image preview" />
+                                <img src={formData.avatar} alt="avatar preview" />
                             )}
                         </div>
                     </section>
