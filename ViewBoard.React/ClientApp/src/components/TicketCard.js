@@ -16,9 +16,9 @@ const TicketCard = ({ color, ticket }) => {
                 <PriorityDisplay priority={Number(ticket.priority)} />
                 <ProgressDisplay progress={Number(ticket.progress)} />
             </Link>
-            <DeleteBlock documentId={ticket.id} />
+            <DeleteBlock ticketId={ticket.id} />
         </div>
-    )
+    );
 }
 
-export default TicketCard
+export default TicketCard;

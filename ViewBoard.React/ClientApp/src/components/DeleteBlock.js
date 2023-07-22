@@ -1,13 +1,12 @@
 ﻿import axios from 'axios'
 
-const DeleteBlock = ({ documentId }) => {
+const DeleteBlock = ({ ticketId }) => {
 
     const deleteTicket = async () => {
-        const response = await axios.delete(`http://localhost:8000/tickets/${documentId}`)
-        const success = response.status == 200
-        if (success) window.location.reload()
+        const response = await axios.delete(`https://localhost:5002/api/ticket/${ticketId}`);
+        const success = response.status == 204;
+        if (success) window.location.reload();
     }
-
 
     return (
         <div className="delete-block">
@@ -16,4 +15,4 @@ const DeleteBlock = ({ documentId }) => {
     )
 }
 
-export default DeleteBlock
+export default DeleteBlock;
