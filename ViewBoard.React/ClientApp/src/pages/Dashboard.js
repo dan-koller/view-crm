@@ -4,10 +4,10 @@ import axios from 'axios'
 import CategoriesContext from '../context'
 
 const Dashboard = () => {
+
     const [tickets, setTickets] = useState(null)
     const { categories, setCategories } = useContext(CategoriesContext)
 
-    // TODO: Fix this useEffect after implementing the backend
     useEffect(() => {
         async function fetchData() {
             try {
@@ -59,7 +59,7 @@ const Dashboard = () => {
                                 .filter((ticket) => ticket.category === uniqueCategory)
                                 .map((filteredTicket, _index) => (
                                     <TicketCard
-                                        key={filteredTicket.id} // Add a unique key here
+                                        key={filteredTicket.id} // Adding a unique key here
                                         id={_index}
                                         color={colors[categoryIndex] || colors[0]}
                                         ticket={filteredTicket}

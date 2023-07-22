@@ -1,14 +1,12 @@
-﻿import { useState, useEffect, useContext } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import axios from 'axios'
-import CategoriesContext from '../context'
-import authService from '../components/api-authorization/AuthorizeService'
+﻿import { useState, useEffect, useContext } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
+import CategoriesContext from '../context';
+import authService from '../components/api-authorization/AuthorizeService';
 
 const TicketPage = ({ editMode }) => {
 
-    // TODO: Check if owner attribute needs to be added to the ticket model
     const [formData, setFormData] = useState({
-        owner: '',
         status: 'not started',
         progress: 0,
         timestamp: new Date().toISOString(),
@@ -35,6 +33,7 @@ const TicketPage = ({ editMode }) => {
             try {
                 const response = await axios.put(`https://localhost:5002/api/ticket/${id}`, formData);
                 const success = response.status === 204;
+
                 if (success) {
                     navigate('/dashboard');
                 }
@@ -48,8 +47,8 @@ const TicketPage = ({ editMode }) => {
             console.log('posting');
             try {
                 const response = await axios.post('https://localhost:5002/api/ticket', formData);
-
                 const success = response.status === 201;
+
                 if (success) {
                     navigate('/dashboard');
                 }
@@ -71,7 +70,7 @@ const TicketPage = ({ editMode }) => {
             fetchData()
         }
 
-        // Get the user name from the auth service
+        // Get the username from the auth service
         async function fetchUserName() {
             try {
                 const user = await Promise.resolve(authService.getUser());
@@ -83,8 +82,7 @@ const TicketPage = ({ editMode }) => {
         }
 
         fetchUserName();
-
-    }, [])
+    }, []);
 
     return (
         <div className="ticket">
@@ -252,7 +250,7 @@ const TicketPage = ({ editMode }) => {
                 </form>
             </div>
         </div>
-    )
+    );
 }
 
-export default TicketPage
+export default TicketPage;
