@@ -5,7 +5,7 @@ import AuthorizeRoute from './components/api-authorization/AuthorizeRoute';
 import { Layout } from './components/Layout';
 import './custom.css';
 import CategoriesContext from './context';
-import Nav from './components/Nav';
+import Sidenav from './components/Sidenav';
 
 const App = () => {
     const displayName = App.name;
@@ -30,7 +30,7 @@ const App = () => {
         <Layout>
             <div className="app">
                 <CategoriesContext.Provider value={value}>
-                    {navVisibility && <Nav />}
+                    {navVisibility && <Sidenav />}
                     <Routes>
                         {AppRoutes.map((route, index) => {
                             const { element, requireAuth, ...rest } = route;

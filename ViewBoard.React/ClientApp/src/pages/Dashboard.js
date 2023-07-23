@@ -5,8 +5,8 @@ import CategoriesContext from '../context'
 
 const Dashboard = () => {
 
-    const [tickets, setTickets] = useState(null)
-    const { categories, setCategories } = useContext(CategoriesContext)
+    const [tickets, setTickets] = useState(null);
+    const { categories, setCategories } = useContext(CategoriesContext);
 
     useEffect(() => {
         async function fetchData() {
@@ -41,11 +41,11 @@ const Dashboard = () => {
         'rgb(255,255,186)',
         'rgb(186,255,201)',
         'rgb(186,225,255)',
-    ]
+    ];
 
     const uniqueCategories = [
         ...new Set(tickets?.map(({ category }) => category)),
-    ]
+    ];
 
     return (
         <div className="dashboard">
@@ -72,4 +72,4 @@ const Dashboard = () => {
     );
 }
 
-export default Dashboard
+export default Dashboard;

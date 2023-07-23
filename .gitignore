@@ -15,3 +15,5 @@ obj/
 *.db
 *.db*
 *.sql
+*.BAK
+*.old

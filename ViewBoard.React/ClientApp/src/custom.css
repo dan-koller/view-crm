@@ -36,7 +36,6 @@ html, body {
 /* ----- Nav ------ */
 
 .side-nav {
-    height: 100vh;
     background-color: rgb(43, 43, 63);
     color: rgb(255,255,255);
     text-align: center;
@@ -201,7 +200,7 @@ html, body {
             margin: 20px 0 0 0;
         }
 
-        .ticket form input, select {
+        .ticket form input, select, textarea {
             padding: 10px;
             font-size: 15px;
             border-radius: 10px;
@@ -212,6 +211,11 @@ html, body {
         .ticket form .multiple-input-container {
             display: flex;
             margin: 20px 0 20px 0;
+        }
+
+        .ticket textarea {
+            height: 140px;
+            resize: none;
         }
 
     .ticket .img-preview {
