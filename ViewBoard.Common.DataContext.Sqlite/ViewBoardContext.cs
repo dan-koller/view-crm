@@ -9,11 +9,16 @@ namespace ViewBoard.Shared
     {
         public ViewBoardContext()
         {
+            // Ensure the database is created. This is only used during development
+            // and not suitable for production. In a production environment, use
+            // migrations to create the database.
+            Database.EnsureCreated();
         }
 
         public ViewBoardContext(DbContextOptions<ViewBoardContext> options)
             : base(options)
         {
+            Database.EnsureCreated();
         }
 
         public virtual DbSet<Ticket> Tickets { get; set; } = null!;
