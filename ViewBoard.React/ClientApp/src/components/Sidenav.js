@@ -1,9 +1,9 @@
 ﻿import { useNavigate } from 'react-router-dom'
 import logo from '../images/crm-logo.png'
 
-const Nav = () => {
+const Sidenav = () => {
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     return (
         <nav className="side-nav">
@@ -12,10 +12,11 @@ const Nav = () => {
             </div>
             <div className="controls-container">
                 <div className="icon" onClick={() => navigate('/ticket')}>➕</div>
+                <br />
                 <div className="icon" onClick={() => navigate('/')}>❮❮</div>
             </div>
         </nav>
-    )
+    );
 }
 
-export default Nav
+export default Sidenav;
