@@ -42,4 +42,7 @@ public partial class Ticket
 
     [Column("timestamp")]
     public string? Timestamp { get; set; }
+
+    [Column("notes")]
+    public string? Notes { get; set; }
 }

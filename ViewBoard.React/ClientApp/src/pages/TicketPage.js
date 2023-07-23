@@ -233,6 +233,22 @@ const TicketPage = ({ editMode }) => {
                             value={formData.owner}
                         />
 
+                        {/* Add a textfield to add notes to a ticket */}
+                        <label htmlFor="notes">Notes</label>
+                        {/*<input*/}
+                        {/*    id="notes"*/}
+                        {/*    name="notes"*/}
+                        {/*    type="text"*/}
+                        {/*    onChange={handleChange}*/}
+                        {/*    value={formData.notes}*/}
+                        {/*/>*/}
+                        <textarea
+                            id="notes"
+                            name="notes"
+                            onChange={handleChange}
+                            value={formData.notes}
+                        />
+
                         <label htmlFor="avatar">Avatar</label>
                         <input
                             id="avatar"
