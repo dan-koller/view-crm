@@ -86,6 +86,27 @@ public class TicketController : ControllerBase
         return NoContent();
     }
 
+    // PATCH: api/ticket/<id>
+    [HttpPatch("{id}")]
+    [ProducesResponseType(204)]
+    [ProducesResponseType(400)]
+    [ProducesResponseType(404)]
+    public async Task<IActionResult> PatchTicket(long id)
+    {
+        Ticket? existingTicket = await repository.GetTicketAsync(id);
+        if (existingTicket == null)
+        {
+            return NotFound();
+        }
+
+        // If the ticket is marked as closed, then unmark it.
+        existingTicket.Closed = existingTicket.Closed == true ? false : true;
+
+        await repository.UpdateTicketAsync(id, existingTicket);
+
+        return NoContent();
+    }
+
     // DELETE: api/ticket/<id>
     [HttpDelete("{id}")]
     [ProducesResponseType(204)]
