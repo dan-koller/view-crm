@@ -14,6 +14,11 @@ const AppRoutes = [
         element: <Dashboard />
     },
     {
+        path: '/dashboard/closed',
+        requireAuth: true,
+        element: <Dashboard isClosedPage={true} />
+    },
+    {
         path: '/ticket',
         requireAuth: true,
         element: <TicketPage />

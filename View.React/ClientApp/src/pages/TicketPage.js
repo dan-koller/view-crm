@@ -10,6 +10,7 @@ const TicketPage = ({ editMode }) => {
         status: 'not started',
         progress: 0,
         timestamp: new Date().toISOString(),
+        closed: false
     });
 
     const { categories, setCategories } = useContext(CategoriesContext);
@@ -217,6 +218,16 @@ const TicketPage = ({ editMode }) => {
                                         Not Started
                                     </option>
                                 </select>
+
+                                {/*Hidden field for new tickets. Closed is false by default*/}
+                                <label htmlFor="closed" type="hidden" />
+                                <input
+                                    id="closed"
+                                    name="closed"
+                                    type="hidden"
+                                    onChange={handleChange}
+                                    value={formData.closed}
+                                />
                             </>
                         )}
                         <input type="submit" />
@@ -235,13 +246,6 @@ const TicketPage = ({ editMode }) => {
 
                         {/* Add a textfield to add notes to a ticket */}
                         <label htmlFor="notes">Notes</label>
-                        {/*<input*/}
-                        {/*    id="notes"*/}
-                        {/*    name="notes"*/}
-                        {/*    type="text"*/}
-                        {/*    onChange={handleChange}*/}
-                        {/*    value={formData.notes}*/}
-                        {/*/>*/}
                         <textarea
                             id="notes"
                             name="notes"

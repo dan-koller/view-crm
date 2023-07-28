@@ -1,10 +1,9 @@
-﻿import TicketCard from '../components/TicketCard'
-import { useState, useEffect, useContext } from 'react'
-import axios from 'axios'
-import CategoriesContext from '../context'
+﻿import axios from 'axios';
+import { useContext, useEffect, useState } from 'react';
+import TicketCard from '../components/TicketCard';
+import CategoriesContext from '../context';
 
-const Dashboard = () => {
-
+const DashBoard = ({ isClosedPage }) => {
     const [tickets, setTickets] = useState(null);
     const { categories, setCategories } = useContext(CategoriesContext);
 
@@ -12,7 +11,9 @@ const Dashboard = () => {
         async function fetchData() {
             try {
                 const response = await axios.get('https://localhost:5002/api/ticket');
-                const dataObject = response.data;
+                const dataObject = response.data.filter(
+                    (ticket) => isClosedPage ? ticket.closed : !ticket.closed
+                );
 
                 if (dataObject) {
                     const arrayOfKeys = Object.keys(dataObject);
@@ -29,7 +30,7 @@ const Dashboard = () => {
             }
         }
         fetchData();
-    }, []);
+    }, [isClosedPage]);
 
     useEffect(() => {
         setCategories([...new Set(tickets?.map(({ category }) => category))])
@@ -49,7 +50,7 @@ const Dashboard = () => {
 
     return (
         <div className="dashboard">
-            <h1>My Projects</h1>
+            <h1>{isClosedPage ? 'Closed projects' : 'My Projects'}</h1>
             <div className="ticket-container">
                 {tickets &&
                     uniqueCategories?.map((uniqueCategory, categoryIndex) => (
@@ -72,4 +73,4 @@ const Dashboard = () => {
     );
 }
 
-export default Dashboard;
+export default DashBoard;

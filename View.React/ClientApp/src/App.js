@@ -17,7 +17,9 @@ const App = () => {
     useEffect(() => {
         // If the path is /dashboard or /ticket, display the nav
         const isDashboardOrTicketRoute =
-            location.pathname === '/dashboard' || location.pathname === '/ticket';
+            location.pathname === '/dashboard'
+            || location.pathname === '/dashboard/closed'
+            || location.pathname === '/ticket';
         const shouldDisplayNav = isDashboardOrTicketRoute;
 
         // Update the nav visibility in the state

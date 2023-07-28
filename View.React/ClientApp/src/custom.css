@@ -44,20 +44,20 @@ html, body {
     justify-content: space-between;
 }
 
-.side-nav .logo-container,
-.side-nav .controls-container {
-    padding: 40px 25px;
-    display: flex;
-    flex-direction: column;
-}
+    .side-nav .logo-container,
+    .side-nav .controls-container {
+        padding: 40px 25px;
+        display: flex;
+        flex-direction: column;
+    }
 
-.side-nav .logo-container img {
-    width: 20px;
-}
+        .side-nav .logo-container img {
+            width: 20px;
+        }
 
-.side-nav .icon {
-    color: rgb(255,255,255);
-}
+    .side-nav .icon {
+        color: rgb(255,255,255);
+    }
 
 /* ----- Dashboard ------ */
 
@@ -140,7 +140,8 @@ html, body {
         min-width: 200px;
     }
 
-    .ticket-card .delete-block {
+    .ticket-card .delete-block,
+    .ticket-card .restore-block {
         background-color: rgb(221, 221, 221);
         width: 50px;
         margin: 2px;
@@ -149,7 +150,8 @@ html, body {
         align-items: center;
     }
 
-        .ticket-card .delete-block .delete-icon {
+        .ticket-card .delete-block .delete-icon,
+        .ticket-card .restore-block .restore-icon {
             width: 20px;
             height: 20px;
             border-radius: 10px;
@@ -157,8 +159,9 @@ html, body {
             display: flex;
             justify-content: center;
             align-items: center;
-            color: rgb(255,255,255);
+            color: rgb(255, 255, 255);
         }
+
 
     .ticket-card .progress-bar {
         width: 100%;
@@ -215,10 +218,10 @@ html, body {
             margin: 20px 0 20px 0;
         }
 
-        .ticket textarea {
-            height: 140px;
-            resize: none;
-        }
+    .ticket textarea {
+        height: 140px;
+        resize: none;
+    }
 
     .ticket .img-preview {
         margin: 20px;
