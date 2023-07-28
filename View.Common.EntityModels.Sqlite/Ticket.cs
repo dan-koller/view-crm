@@ -45,4 +45,7 @@ public partial class Ticket
 
     [Column("notes")]
     public string? Notes { get; set; }
+
+    [Column("closed")]
+    public bool Closed { get; set; }
 }
