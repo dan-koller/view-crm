@@ -12,7 +12,7 @@ namespace View.Shared
         /// <param name="relativePath">Set to override the default of ".."</param>
         /// <param name="databaseFilename">Set to override the default of "View.db"</param>
         /// <returns>An IServiceCollection that can be used to add more services.</returns>
-        public static IServiceCollection AddViewBoardContext(
+        public static IServiceCollection AddViewContext(
           this IServiceCollection services, string relativePath = "..",
           string databaseFilename = "View.db")
         {

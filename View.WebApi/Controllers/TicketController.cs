@@ -89,7 +89,6 @@ public class TicketController : ControllerBase
     // PATCH: api/ticket/<id>
     [HttpPatch("{id}")]
     [ProducesResponseType(204)]
-    [ProducesResponseType(400)]
     [ProducesResponseType(404)]
     public async Task<IActionResult> PatchTicket(long id)
     {

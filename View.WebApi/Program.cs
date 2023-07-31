@@ -9,7 +9,7 @@ var MyAllowSpecificOrigins = "_allowReactApp"; // CORS
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddViewBoardContext();
+builder.Services.AddViewContext(); // Connect to Sqlite Ticket database
 
 builder.Services.AddControllers(options =>
 {
@@ -52,6 +52,7 @@ builder.Services.AddCors(options =>
                       });
 });
 
+// Add HTTP request logging
 builder.Services.AddHttpLogging(options =>
 {
     options.LoggingFields = HttpLoggingFields.All;
@@ -76,11 +77,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors(MyAllowSpecificOrigins);
+
 app.UseAuthorization();
 
 // app.UseHttpLogging(); // only for development
-
-app.UseCors(MyAllowSpecificOrigins);
 
 app.MapControllers();
 
