@@ -7,6 +7,9 @@ const DashBoard = ({ isClosedPage }) => {
     const [tickets, setTickets] = useState(null);
     const { categories, setCategories } = useContext(CategoriesContext);
 
+    // TODO: If the user successfully logs in, make a "hidden" api call to get a jwt from the webapi
+    // Use this jwt to authenticate all other api calls
+
     useEffect(() => {
         async function fetchData() {
             try {
