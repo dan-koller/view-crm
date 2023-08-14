@@ -25,7 +25,7 @@ const TicketPage = ({ editMode }) => {
         setFormData((prevState) => ({
             ...prevState,
             [name]: value
-        }))
+        }));
     }
 
     const handleSubmit = async (e) => {

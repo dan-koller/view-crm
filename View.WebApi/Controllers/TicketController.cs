@@ -8,6 +8,7 @@ namespace View.WebApi.Controllers;
 // base address: api/ticket
 [Route(Constants.ApiRoute)]
 [ApiController]
+[Authorize]
 public class TicketController : ControllerBase
 {
     private readonly ITicketRepository repository;
@@ -130,17 +131,6 @@ public class TicketController : ControllerBase
             return BadRequest( // 400 Bad request
                     $"Ticket {id} was found but failed to delete.");
         }
-    }
-
-    // GET: api/ticket/test
-    // Needs a jwt token in the Authorization header.
-    [HttpGet("test")]
-    [ProducesResponseType(200, Type = typeof(string))]
-    [ProducesResponseType(401)]
-    [Authorize]
-    public ActionResult<string> Test()
-    {
-        return Ok("Test successful.");
     }
 }
 
