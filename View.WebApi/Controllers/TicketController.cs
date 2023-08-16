@@ -121,6 +121,14 @@ public class TicketController : ControllerBase
             return NotFound();
         }
 
+        // Only the owner of the ticket can delete it.
+        string? username = User.Identity?.Name;
+        string? ticketUsername = existingTicket.Owner;
+        if (username != ticketUsername)
+        {
+            return BadRequest($"Ticket {id} was found but the authenticated user is not the owner.");
+        }
+
         bool? deleted = await repository.DeleteTicketAsync(id);
         if (deleted.HasValue && deleted.Value) // short circuit AND
         {
