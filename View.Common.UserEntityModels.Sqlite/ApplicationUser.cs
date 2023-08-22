@@ -4,4 +4,5 @@ namespace View.Shared;
 
 public class ApplicationUser : IdentityUser
 {
+    public string? Name { get; set; }
 }
