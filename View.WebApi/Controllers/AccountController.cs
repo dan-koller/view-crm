@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
 using View.WebApi.Data;
 using View.Shared; // ApplicationUser
+using Microsoft.AspNetCore.Authorization;
 
 namespace View.WebApi.Controllers;
 
@@ -133,6 +134,73 @@ public class AccountController : ControllerBase
                 Message = "Registration failed"
             });
         }
+    }
+
+    // POST: api/account/update
+    [HttpPost("update")]
+    [ProducesResponseType(200, Type = typeof(string))]
+    [ProducesResponseType(400)]
+    [ProducesResponseType(401)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<IActionResult> Update(UpdateAccountRequest updateRequest)
+    {
+        var user = await _userManager.FindByNameAsync(updateRequest.Email);
+
+        if (user == null)
+        {
+            return Unauthorized(new LoginResult()
+            {
+                Success = false,
+                Message = "Invalid Email."
+            });
+        }
+
+        // Check if the current password is correct
+        var isCurrentPasswordValid = await _userManager.CheckPasswordAsync(user, updateRequest.CurrentPassword);
+
+        if (!isCurrentPasswordValid)
+        {
+            return Unauthorized(new LoginResult()
+            {
+                Success = false,
+                Message = "Invalid Password."
+            });
+        }
+
+        // Update the name if provided and does not match the current name
+        bool isNameChanged = user.Name != updateRequest.Name;
+        if (isNameChanged && !string.IsNullOrWhiteSpace(updateRequest.Name))
+        {
+            user.Name = updateRequest.Name;
+            await _userManager.UpdateAsync(user);
+        }
+
+        // Update the password if provided
+        if (!string.IsNullOrWhiteSpace(updateRequest.NewPassword))
+        {
+            var changePasswordResult = await _userManager.ChangePasswordAsync(user, updateRequest.CurrentPassword, updateRequest.NewPassword);
+
+            if (!changePasswordResult.Succeeded)
+            {
+                return Unauthorized(new LoginResult()
+                {
+                    Success = false,
+                    Message = "Password update failed"
+                });
+            }
+        }
+
+        // Generate a new JWT token with updated user claims
+        var secToken = await _jwtHandler.GetTokenAsync(user);
+        // Include the name as a claim in the JWT token
+        secToken.Payload["Name"] = user.Name;
+        var jwt = new JwtSecurityTokenHandler().WriteToken(secToken);
+        return Ok(new LoginResult()
+        {
+            Success = true,
+            Message = "Registration successful",
+            Token = jwt
+        });
     }
 }
 
