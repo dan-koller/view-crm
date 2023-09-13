@@ -6,7 +6,7 @@ namespace View.Shared
     public static class UserContextExtensions
     {
         /// <summary>
-        /// Adds ViewContext to the specified IServiceCollection. Uses the Sqlite database provider.
+        /// Adds UserContext to the specified IServiceCollection. Uses the Sqlite database provider.
         /// </summary>
         /// <param name="services"></param>
         /// <param name="relativePath">Set to override the default of ".."</param>
