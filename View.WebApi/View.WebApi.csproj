@@ -19,8 +19,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\View.Common.DataContext.Sqlite\View.Common.DataContext.Sqlite.csproj" />
-	  <ProjectReference Include="..\View.Common.UserDataContext.Sqlite\View.Common.UserDataContext.Sqlite.csproj" />
+		<!-- Change to Sqlite if you prefer -->
+		<!-- <ProjectReference Include="..\View.Common.DataContext.Sqlite\View.Common.DataContext.Sqlite.csproj" /> -->
+		<!-- <ProjectReference Include="..\View.Common.UserDataContext.Sqlite\View.Common.UserDataContext.Sqlite.csproj" /> -->
+		<ProjectReference Include="..\View.Common.DataContext.SqlServer\View.Common.DataContext.SqlServer.csproj" />
+		<ProjectReference Include="..\View.Common.UserDataContext.SqlServer\View.Common.UserDataContext.SqlServer.csproj" />
 	</ItemGroup>
 
 </Project>

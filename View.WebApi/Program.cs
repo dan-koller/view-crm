@@ -13,7 +13,7 @@ var MyAllowSpecificOrigins = "_allowReactApp"; // CORS
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddViewContext(); // Connect to Sqlite Ticket database
+builder.Services.AddViewContext(); // Connect to SqlServer Ticket database
 
 builder.Services.AddControllers(options =>
 {
@@ -38,7 +38,7 @@ builder.Services.AddControllers(options =>
 .AddXmlSerializerFormatters();
 
 // Add ASP.NET Core Identity support
-builder.Services.AddUserContext(); // Connect to Sqlite User database
+builder.Services.AddUserContext(); // Connect to SqlServer User database
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
