@@ -1,9 +1,10 @@
 ﻿using View.Shared;
+using View.WebApi.Data;
 
 namespace View.WebApi.Repositories;
 
-public class IUserRepository
+public interface IUserRepository
 {
-
+    Task<ApplicationUser?> CreateUserAsync(RegisterRequest registerRequest);
 }
 
