@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
-using View.WebApi.Data;
 using View.Shared; // ApplicationUser
-using Microsoft.AspNetCore.Authorization;
+using View.WebApi.Data;
 using View.WebApi.Repositories;
 
 namespace View.WebApi.Controllers;
@@ -15,15 +14,12 @@ namespace View.WebApi.Controllers;
 [ApiController]
 public class AccountController : ControllerBase
 {
-    private readonly UserContext _context;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly JwtHandler _jwtHandler;
-
     private readonly IUserRepository _repository;
 
-    public AccountController(UserContext context, UserManager<ApplicationUser> userManager, JwtHandler jwtHandler, IUserRepository repository)
+    public AccountController(UserManager<ApplicationUser> userManager, JwtHandler jwtHandler, IUserRepository repository)
     {
-        _context = context;
         _userManager = userManager;
         _jwtHandler = jwtHandler;
         _repository = repository;
@@ -43,9 +39,7 @@ public class AccountController : ControllerBase
                 Success = false,
                 Message = "Invalid Email or Password."
             });
-        var secToken = await _jwtHandler.GetTokenAsync(user);
-        secToken.Payload["Name"] = user.Name;
-        var jwt = new JwtSecurityTokenHandler().WriteToken(secToken);
+        var jwt = GenerateJwtToken(user).Result;
         return Ok(new LoginResult()
         {
             Success = true,
@@ -72,10 +66,7 @@ public class AccountController : ControllerBase
 
         if (newUser != null)
         {
-            var secToken = await _jwtHandler.GetTokenAsync(newUser);
-            // Include the name as a claim in the JWT token
-            secToken.Payload["Name"] = newUser.Name;
-            var jwt = new JwtSecurityTokenHandler().WriteToken(secToken);
+            var jwt = GenerateJwtToken(newUser).Result;
             return Ok(new LoginResult()
             {
                 Success = true,
@@ -122,40 +113,34 @@ public class AccountController : ControllerBase
             });
         }
 
-        // Update the name if provided and does not match the current name
-        bool isNameChanged = user.Name != updateRequest.Name;
-        if (isNameChanged && !string.IsNullOrWhiteSpace(updateRequest.Name))
+        var updatedUser = await _repository.UpdateUserAsync(updateRequest, user);
+        if (updatedUser == null)
         {
-            user.Name = updateRequest.Name;
-            await _userManager.UpdateAsync(user);
-        }
-
-        // Update the password if provided
-        if (!string.IsNullOrWhiteSpace(updateRequest.NewPassword))
-        {
-            var changePasswordResult = await _userManager.ChangePasswordAsync(user, updateRequest.CurrentPassword, updateRequest.NewPassword);
-
-            if (!changePasswordResult.Succeeded)
+            return Unauthorized(new LoginResult()
             {
-                return Unauthorized(new LoginResult()
-                {
-                    Success = false,
-                    Message = "Password update failed"
-                });
-            }
+                Success = false,
+                Message = "Password update failed"
+            });
         }
 
-        // Generate a new JWT token with updated existingUser claims
-        var secToken = await _jwtHandler.GetTokenAsync(user);
-        // Include the name as a claim in the JWT token
-        secToken.Payload["Name"] = user.Name;
-        var jwt = new JwtSecurityTokenHandler().WriteToken(secToken);
+        // Generate a new JWT token with updated claims
+        var jwt = GenerateJwtToken(updatedUser).Result;
         return Ok(new LoginResult()
         {
             Success = true,
             Message = "Update successful",
             Token = jwt
         });
+    }
+
+    // Helper method to generate a JWT token. Usage: var jwt = GenerateJwtToken(user).Result;
+    private async Task<String?> GenerateJwtToken(ApplicationUser user)
+    {
+        var secToken = await _jwtHandler.GetTokenAsync(user);
+        // Include the name as a claim in the JWT token
+        secToken.Payload["Name"] = user.Name;
+        var jwt = new JwtSecurityTokenHandler().WriteToken(secToken);
+        return jwt;
     }
 }
 

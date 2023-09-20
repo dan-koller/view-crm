@@ -1,6 +1,6 @@
-﻿using View.Shared; // ApplicationUser
+﻿using Microsoft.AspNetCore.Identity;
+using View.Shared; // ApplicationUser
 using View.WebApi.Data;
-using Microsoft.AspNetCore.Identity;
 
 namespace View.WebApi.Repositories;
 
@@ -77,6 +77,30 @@ public class UserRepository : IUserRepository
         {
             return null;
         }
+    }
+
+    public async Task<ApplicationUser?> UpdateUserAsync(UpdateAccountRequest updateRequest, ApplicationUser user)
+    {
+        // Update the name if provided and does not match the current name
+        bool isNameChanged = user.Name != updateRequest.Name;
+        if (isNameChanged && !string.IsNullOrWhiteSpace(updateRequest.Name))
+        {
+            user.Name = updateRequest.Name;
+            await _userManager.UpdateAsync(user);
+        }
+
+        // Update the password if provided
+        if (!string.IsNullOrWhiteSpace(updateRequest.NewPassword))
+        {
+            var changePasswordResult = await _userManager.ChangePasswordAsync(user, updateRequest.CurrentPassword, updateRequest.NewPassword);
+
+            if (!changePasswordResult.Succeeded)
+            {
+                return null; // Password update failed
+            }
+        }
+
+        return user;
     }
 }
 
