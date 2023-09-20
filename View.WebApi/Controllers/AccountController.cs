@@ -34,18 +34,9 @@ public class AccountController : ControllerBase
         var user = await _userManager.FindByNameAsync(loginRequest.Email);
         if (user == null
             || !await _userManager.CheckPasswordAsync(user, loginRequest.Password))
-            return Unauthorized(new LoginResult()
-            {
-                Success = false,
-                Message = "Invalid Email or Password."
-            });
+            return Unauthorized(CreateLoginResult(false, "Invalid Email or Password."));
         var jwt = GenerateJwtToken(user).Result;
-        return Ok(new LoginResult()
-        {
-            Success = true,
-            Message = "Login successful",
-            Token = jwt
-        });
+        return Ok(CreateLoginResult(true, "Login successful", jwt));
     }
 
     // POST: api/account/register
@@ -56,32 +47,14 @@ public class AccountController : ControllerBase
     {
         var existingUser = await _userManager.FindByNameAsync(registerRequest.Email);
         if (existingUser != null)
-            return Unauthorized(new LoginResult()
-            {
-                Success = false,
-                Message = "Email already exists."
-            });
+            return Unauthorized(CreateLoginResult(false, "Email already exists."));
 
         var newUser = await _repository.CreateUserAsync(registerRequest);
+        if (newUser == null)
+            return Unauthorized(CreateLoginResult(false, "Registration failed."));
 
-        if (newUser != null)
-        {
-            var jwt = GenerateJwtToken(newUser).Result;
-            return Ok(new LoginResult()
-            {
-                Success = true,
-                Message = "Registration successful",
-                Token = jwt
-            });
-        }
-        else
-        {
-            return Unauthorized(new LoginResult()
-            {
-                Success = false,
-                Message = "Registration failed"
-            });
-        }
+        var jwt = GenerateJwtToken(newUser).Result;
+        return Ok(CreateLoginResult(true, "Registration successful", jwt));
     }
 
     // POST: api/account/update
@@ -93,54 +66,35 @@ public class AccountController : ControllerBase
     public async Task<IActionResult> Update(UpdateAccountRequest updateRequest)
     {
         var user = await _userManager.FindByNameAsync(updateRequest.Email);
-        if (user == null)
-        {
-            return Unauthorized(new LoginResult()
-            {
-                Success = false,
-                Message = "Invalid Email."
-            });
-        }
-
-        // Check if the current password is correct
-        var isCurrentPasswordValid = await _userManager.CheckPasswordAsync(user, updateRequest.CurrentPassword);
-        if (!isCurrentPasswordValid)
-        {
-            return Unauthorized(new LoginResult()
-            {
-                Success = false,
-                Message = "Invalid Password."
-            });
-        }
+        if (user == null || !await _userManager.CheckPasswordAsync(user, updateRequest.CurrentPassword))
+            return Unauthorized(CreateLoginResult(false, "Invalid Email or Password."));
 
         var updatedUser = await _repository.UpdateUserAsync(updateRequest, user);
         if (updatedUser == null)
-        {
-            return Unauthorized(new LoginResult()
-            {
-                Success = false,
-                Message = "Password update failed"
-            });
-        }
+            return Unauthorized(CreateLoginResult(false, "Account update failed."));
 
-        // Generate a new JWT token with updated claims
         var jwt = GenerateJwtToken(updatedUser).Result;
-        return Ok(new LoginResult()
-        {
-            Success = true,
-            Message = "Update successful",
-            Token = jwt
-        });
+        return Ok(CreateLoginResult(true, "Update successful", jwt));
     }
 
-    // Helper method to generate a JWT token. Usage: var jwt = GenerateJwtToken(user).Result;
+    // Helper method to generate a JWT token including the name as a claim
+    // Usage: var jwt = GenerateJwtToken(user).Result;
     private async Task<String?> GenerateJwtToken(ApplicationUser user)
     {
         var secToken = await _jwtHandler.GetTokenAsync(user);
-        // Include the name as a claim in the JWT token
         secToken.Payload["Name"] = user.Name;
         var jwt = new JwtSecurityTokenHandler().WriteToken(secToken);
         return jwt;
+    }
+
+    private LoginResult CreateLoginResult(bool success, string message, string? token = null)
+    {
+        return new LoginResult()
+        {
+            Success = success,
+            Message = message,
+            Token = token
+        };
     }
 }
 
