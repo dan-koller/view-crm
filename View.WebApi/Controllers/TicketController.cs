@@ -25,9 +25,7 @@ public class TicketController : ControllerBase
     {
         IEnumerable<Ticket>? tickets = await repository.GetAllTicketAsync();
         if (tickets == null)
-        {
             return NotFound();
-        }
         return Ok(tickets);
     }
 
@@ -39,9 +37,7 @@ public class TicketController : ControllerBase
     {
         Ticket? ticket = await repository.GetTicketAsync(id);
         if (ticket == null)
-        {
             return NotFound();
-        }
         return Ok(ticket);
     }
 
@@ -52,15 +48,11 @@ public class TicketController : ControllerBase
     public async Task<ActionResult<Ticket>> PostTicket([FromBody] Ticket ticket)
     {
         if (ticket == null)
-        {
             return BadRequest();
-        }
 
         Ticket? newTicket = await repository.CreateTicketAsync(ticket);
         if (newTicket == null)
-        {
             return BadRequest();
-        }
 
         return CreatedAtAction(nameof(GetTicket), new { id = newTicket.Id }, newTicket);
     }
@@ -73,15 +65,11 @@ public class TicketController : ControllerBase
     public async Task<IActionResult> PutTicket(long id, [FromBody] Ticket ticket)
     {
         if (ticket == null || ticket.Id != id)
-        {
             return BadRequest();
-        }
 
         Ticket? existingTicket = await repository.GetTicketAsync(id);
         if (existingTicket == null)
-        {
             return NotFound();
-        }
 
         await repository.UpdateTicketAsync(id, ticket);
 
@@ -96,13 +84,9 @@ public class TicketController : ControllerBase
     {
         Ticket? existingTicket = await repository.GetTicketAsync(id);
         if (existingTicket == null)
-        {
             return NotFound();
-        }
 
-        // If the ticket is marked as closed, then unmark it.
         existingTicket.Closed = existingTicket.Closed == true ? false : true;
-
         await repository.UpdateTicketAsync(id, existingTicket);
 
         return NoContent();
@@ -117,17 +101,13 @@ public class TicketController : ControllerBase
     {
         Ticket? existingTicket = await repository.GetTicketAsync(id);
         if (existingTicket == null)
-        {
             return NotFound();
-        }
 
         // Only the owner of the ticket can delete it.
         string? username = User.Identity?.Name;
         string? ticketUsername = existingTicket.Owner;
         if (username != ticketUsername)
-        {
             return BadRequest($"Ticket {id} was found but the authenticated user is not the owner.");
-        }
 
         bool? deleted = await repository.DeleteTicketAsync(id);
         if (deleted.HasValue && deleted.Value) // short circuit AND
