@@ -1,50 +1,164 @@
-import React, { Component } from 'react';
-import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
-import { Link } from 'react-router-dom';
-import { LoginMenu } from './api-authorization/LoginMenu';
-import './NavMenu.css';
+import React, { useState } from "react";
+import {
+    Collapse,
+    Navbar,
+    NavbarBrand,
+    NavbarToggler,
+    NavItem,
+    NavLink,
+} from "reactstrap";
+import { Link } from "react-router-dom";
+import "./NavMenu.css";
+import { useAuth } from "./auth/AuthContext";
 
-export class NavMenu extends Component {
-  static displayName = NavMenu.name;
+function NavMenu() {
+    const [collapsed, setCollapsed] = useState(true);
+    const auth = useAuth();
 
-  constructor (props) {
-    super(props);
-
-    this.toggleNavbar = this.toggleNavbar.bind(this);
-    this.state = {
-      collapsed: true
+    const toggleNavbar = () => {
+        setCollapsed(!collapsed);
     };
-  }
 
-  toggleNavbar () {
-    this.setState({
-      collapsed: !this.state.collapsed
-    });
-  }
+    const logout = () => {
+        auth.userLogout();
+    };
 
-  render() {
+    const enterMenuStyle = () => {
+        return auth.userIsAuthenticated()
+            ? { display: "none" }
+            : { display: "block" };
+    };
+
+    const logoutMenuStyle = () => {
+        return auth.userIsAuthenticated()
+            ? { display: "block" }
+            : { display: "none" };
+    };
+
+    const adminPageStyle = () => {
+        const user = auth.getUser();
+        return user && user.role === "Administrator"
+            ? { display: "block" }
+            : { display: "none" };
+    };
+
+    const userPageStyle = () => {
+        const user = auth.getUser();
+        return user &&
+            // Admins also have the RegisteredUser role
+            (user.role === "RegisteredUser" ||
+                user.role.includes("Administrator"))
+            ? { display: "block" }
+            : { display: "none" };
+    };
+
+    const getUserName = () => {
+        const user = auth.getUser();
+        return user ? user.name : "";
+    };
+
+    const getGreeting = () => {
+        const currentTime = new Date().getHours();
+
+        if (currentTime >= 6 && currentTime < 12) {
+            return "Good morning"; // 6am - 12pm
+        }
+        if (currentTime >= 12 && currentTime < 18) {
+            return "Good afternoon"; // 12pm - 6pm
+        }
+        if (currentTime >= 18 || currentTime < 6) {
+            return "Good evening"; // 6pm - 6am
+        }
+    };
+
     return (
-      <header>
-        <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" container light>
-          <NavbarBrand tag={Link} to="/">View.CRM</NavbarBrand>
-          <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-          <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
-            <ul className="navbar-nav flex-grow">
-              <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/dashboard">Dashboard</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/ticket">New Ticket</NavLink>
-              </NavItem>
-              <LoginMenu>
-              </LoginMenu>
-            </ul>
-          </Collapse>
-        </Navbar>
-      </header>
+        <header>
+            <Navbar
+                className='navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3'
+                container
+                light
+            >
+                <NavbarBrand tag={Link} to='/'>
+                    View CRM
+                </NavbarBrand>
+                <NavbarToggler onClick={toggleNavbar} className='mr-2' />
+                <Collapse
+                    className='d-sm-inline-flex flex-sm-row-reverse'
+                    isOpen={!collapsed}
+                    navbar
+                >
+                    <ul className='navbar-nav flex-grow'>
+                        <NavItem>
+                            <NavLink tag={Link} className='text-dark' to='/'>
+                                Home
+                            </NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink
+                                tag={Link}
+                                className='text-dark'
+                                to='/register'
+                                style={enterMenuStyle()}
+                            >
+                                Register
+                            </NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink
+                                tag={Link}
+                                className='text-dark'
+                                to='/login'
+                                style={enterMenuStyle()}
+                            >
+                                Login
+                            </NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink
+                                tag={Link}
+                                className='text-dark'
+                                to='/dashboard'
+                                style={userPageStyle()}
+                            >
+                                Dashboard
+                            </NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink
+                                tag={Link}
+                                className='text-dark'
+                                to='/ticket'
+                                style={userPageStyle()}
+                            >
+                                Ticket
+                            </NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink
+                                tag={Link}
+                                className='text-dark'
+                                to='/account' // Navigate back to home page
+                                style={userPageStyle()}
+                            >
+                                {getGreeting()}, {getUserName()}
+                            </NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink
+                                tag={Link}
+                                className='text-dark'
+                                to='/' // Navigate back to home page
+                                style={logoutMenuStyle()}
+                                onClick={logout}
+                            >
+                                Logout
+                            </NavLink>
+                        </NavItem>
+                    </ul>
+                </Collapse>
+            </Navbar>
+        </header>
     );
-  }
 }
+
+export default NavMenu;

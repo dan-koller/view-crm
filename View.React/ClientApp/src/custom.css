@@ -3,12 +3,16 @@ a {
     color: #0366d6;
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
     box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 code {
-    color: #E01A76;
+    color: #e01a76;
 }
 
 .btn-primary {
@@ -18,14 +22,21 @@ code {
 }
 
 /* ----- Custom CSS ----- */
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
-    font-family: 'Trebuchet MS', Arial, sans-serif;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    /*Use the image from the image folder*/
+    background-image: url("./images/background.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Optional: This keeps the background fixed while scrolling */
 }
 
 .app {
     display: flex;
+    background: rgb(255, 255, 255);
 }
 
 #link {
@@ -37,7 +48,7 @@ html, body {
 
 .side-nav {
     background-color: rgb(43, 43, 63);
-    color: rgb(255,255,255);
+    color: rgb(255, 255, 255);
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -56,7 +67,12 @@ html, body {
         }
 
     .side-nav .icon {
-        color: rgb(255,255,255);
+        color: rgb(255, 255, 255);
+    }
+
+    .side-nav .icon,
+    .side-nav .logo-container img {
+        cursor: pointer;
     }
 
 /* ----- Dashboard ------ */
@@ -65,6 +81,10 @@ html, body {
     padding: 30px;
     width: 100%;
 }
+
+    .dashboard input {
+        margin: 10px 0;
+    }
 
     .dashboard .ticket-container {
         height: 80vh;
@@ -75,7 +95,7 @@ html, body {
 
 .ticket-card {
     display: flex;
-    width: 100%
+    width: 100%;
 }
 
     .ticket-card #link {
@@ -91,7 +111,6 @@ html, body {
             display: flex;
             align-items: center;
         }
-
 
     .ticket-card .ticket-color {
         width: 15px;
@@ -124,7 +143,6 @@ html, body {
         display: flex;
         justify-content: center;
     }
-
 
         .ticket-card .priority-display .star-container {
             display: flex;
@@ -160,8 +178,8 @@ html, body {
             justify-content: center;
             align-items: center;
             color: rgb(255, 255, 255);
+            cursor: pointer;
         }
-
 
     .ticket-card .progress-bar {
         width: 100%;
@@ -171,11 +189,19 @@ html, body {
         overflow: hidden;
     }
 
-
         .ticket-card .progress-bar .progress-indicator {
             background-color: rgb(104, 104, 175);
             height: 100%;
         }
+
+/* ----- Account, Login, Signup ------ */
+
+.account button,
+.login button,
+.signup button {
+    margin: 0;
+    margin-bottom: 10px;
+}
 
 /* ----- Ticket ------ */
 
@@ -205,7 +231,10 @@ html, body {
             margin: 20px 0 0 0;
         }
 
-        .ticket form input, select, textarea {
+        .ticket form input,
+        select,
+        textarea,
+        button {
             padding: 10px;
             font-size: 15px;
             border-radius: 10px;

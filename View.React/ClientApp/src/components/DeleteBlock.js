@@ -1,25 +1,34 @@
-﻿import axios from 'axios';
+﻿import { api } from "../components/misc/Api";
 
 const DeleteBlock = ({ ticketId, removeTicket }) => {
-
     const deleteTicket = async () => {
         let response = null;
-        if (!removeTicket) {
-            response = await axios.patch(`https://localhost:5002/api/ticket/${ticketId}`);
-        }
-        else {
 
-            response = await axios.delete(`https://localhost:5002/api/ticket/${ticketId}`);
+        try {
+            if (!removeTicket) {
+                response = await api.patchTicket(ticketId);
+            } else {
+                response = await api.deleteTicket(ticketId);
+            }
+            const success = response.status == 204;
+            if (success) window.location.reload();
+        } catch (e) {
+            // By default, axios throws an error if the response status is not 2xx
+            // We can access the response object with e.response
+            const status = e.response.status;
+            if (status == 400) {
+                alert("Error deleting ticket: " + e.response.data);
+            }
         }
-        const success = response.status == 204;
-        if (success) window.location.reload();
-    }
+    };
 
     return (
-        <div className="delete-block">
-            <div className="delete-icon" onClick={deleteTicket}>✖</div>
+        <div className='delete-block'>
+            <div className='delete-icon' onClick={deleteTicket}>
+                ✖
+            </div>
         </div>
     );
-}
+};
 
 export default DeleteBlock;
