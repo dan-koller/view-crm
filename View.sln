@@ -2,26 +2,28 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View.React", "View.React\View.React.csproj", "{9139CCCE-4D17-4E6D-854F-5187B949C17C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View.React", "src\View.React\View.React.csproj", "{9139CCCE-4D17-4E6D-854F-5187B949C17C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View.Common.EntityModels.Sqlite", "View.Common.EntityModels.Sqlite\View.Common.EntityModels.Sqlite.csproj", "{F6ED9D95-6DEC-4C9D-A0CC-1A17CE5475C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View.Common.EntityModels.Sqlite", "src\View.Common.EntityModels.Sqlite\View.Common.EntityModels.Sqlite.csproj", "{F6ED9D95-6DEC-4C9D-A0CC-1A17CE5475C0}"
 	ProjectSection(ProjectDependencies) = postProject
 		{448FC682-EE6F-42AA-ADA1-E3C557DBC86E} = {448FC682-EE6F-42AA-ADA1-E3C557DBC86E}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View.Common.DataContext.Sqlite", "View.Common.DataContext.Sqlite\View.Common.DataContext.Sqlite.csproj", "{448FC682-EE6F-42AA-ADA1-E3C557DBC86E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View.Common.DataContext.Sqlite", "src\View.Common.DataContext.Sqlite\View.Common.DataContext.Sqlite.csproj", "{448FC682-EE6F-42AA-ADA1-E3C557DBC86E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View.WebApi", "View.WebApi\View.WebApi.csproj", "{D4B6A782-A6F2-4BDA-8F0D-14C110DA4F05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View.WebApi", "src\View.WebApi\View.WebApi.csproj", "{D4B6A782-A6F2-4BDA-8F0D-14C110DA4F05}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View.Common.UserDataContext.Sqlite", "View.Common.UserDataContext.Sqlite\View.Common.UserDataContext.Sqlite.csproj", "{B367D833-7987-4534-9EB6-8148638223C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View.Common.UserDataContext.Sqlite", "src\View.Common.UserDataContext.Sqlite\View.Common.UserDataContext.Sqlite.csproj", "{B367D833-7987-4534-9EB6-8148638223C7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View.Common.UserEntityModels", "View.Common.UserEntityModels\View.Common.UserEntityModels.csproj", "{BFCB1205-7254-48E0-A33F-E47589FB440E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View.Common.UserEntityModels", "src\View.Common.UserEntityModels\View.Common.UserEntityModels.csproj", "{BFCB1205-7254-48E0-A33F-E47589FB440E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View.Common.EntityModels.SqlServer", "View.Common.EntityModels.SqlServer\View.Common.EntityModels.SqlServer.csproj", "{A5D51D45-2BEE-4E7D-94AD-4FC5006C7664}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View.Common.EntityModels.SqlServer", "src\View.Common.EntityModels.SqlServer\View.Common.EntityModels.SqlServer.csproj", "{A5D51D45-2BEE-4E7D-94AD-4FC5006C7664}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View.Common.DataContext.SqlServer", "View.Common.DataContext.SqlServer\View.Common.DataContext.SqlServer.csproj", "{FA7630A5-6055-4983-BA21-A994F59C72A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View.Common.DataContext.SqlServer", "src\View.Common.DataContext.SqlServer\View.Common.DataContext.SqlServer.csproj", "{FA7630A5-6055-4983-BA21-A994F59C72A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "View.Common.UserDataContext.SqlServer", "View.Common.UserDataContext.SqlServer\View.Common.UserDataContext.SqlServer.csproj", "{EDC41744-38D8-461D-8975-B38E43F1CF2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View.Common.UserDataContext.SqlServer", "src\View.Common.UserDataContext.SqlServer\View.Common.UserDataContext.SqlServer.csproj", "{EDC41744-38D8-461D-8975-B38E43F1CF2A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7CE99ACE-7A05-478D-9324-E0C615838489}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -68,6 +70,17 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9139CCCE-4D17-4E6D-854F-5187B949C17C} = {7CE99ACE-7A05-478D-9324-E0C615838489}
+		{F6ED9D95-6DEC-4C9D-A0CC-1A17CE5475C0} = {7CE99ACE-7A05-478D-9324-E0C615838489}
+		{448FC682-EE6F-42AA-ADA1-E3C557DBC86E} = {7CE99ACE-7A05-478D-9324-E0C615838489}
+		{D4B6A782-A6F2-4BDA-8F0D-14C110DA4F05} = {7CE99ACE-7A05-478D-9324-E0C615838489}
+		{B367D833-7987-4534-9EB6-8148638223C7} = {7CE99ACE-7A05-478D-9324-E0C615838489}
+		{BFCB1205-7254-48E0-A33F-E47589FB440E} = {7CE99ACE-7A05-478D-9324-E0C615838489}
+		{A5D51D45-2BEE-4E7D-94AD-4FC5006C7664} = {7CE99ACE-7A05-478D-9324-E0C615838489}
+		{FA7630A5-6055-4983-BA21-A994F59C72A2} = {7CE99ACE-7A05-478D-9324-E0C615838489}
+		{EDC41744-38D8-461D-8975-B38E43F1CF2A} = {7CE99ACE-7A05-478D-9324-E0C615838489}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2EBB05AC-C95B-415D-946F-185C79D594E7}
