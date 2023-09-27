@@ -24,3 +24,11 @@ By default, the application is running on port 5000. You will be redirected thou
 On the landing page, you can register a new account or login with an existing one. The first user you register will be an administrator, even though there is no difference between a regular user and an administrator at the moment.
 
 The app itself is pretty self explanatory. You can create tickets representing your projects. When you delete a projects, they are "tossed" into the trash bin, where you can restore them or delete them permanently. Only the owner of the ticket can delete it permanently.
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request if you have any ideas for improvements.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
