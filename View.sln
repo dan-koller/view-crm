@@ -1,4 +1,4 @@
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
@@ -24,6 +24,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View.Common.UserDataContext.SqlServer", "src\View.Common.UserDataContext.SqlServer\View.Common.UserDataContext.SqlServer.csproj", "{EDC41744-38D8-461D-8975-B38E43F1CF2A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7CE99ACE-7A05-478D-9324-E0C615838489}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "View.UnitTests", "src\View.UnitTests\View.UnitTests.csproj", "{22BFB87C-CA05-444E-97DE-4505849B740B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +69,10 @@ Global
 		{EDC41744-38D8-461D-8975-B38E43F1CF2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDC41744-38D8-461D-8975-B38E43F1CF2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDC41744-38D8-461D-8975-B38E43F1CF2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22BFB87C-CA05-444E-97DE-4505849B740B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22BFB87C-CA05-444E-97DE-4505849B740B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22BFB87C-CA05-444E-97DE-4505849B740B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22BFB87C-CA05-444E-97DE-4505849B740B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,6 +87,7 @@ Global
 		{A5D51D45-2BEE-4E7D-94AD-4FC5006C7664} = {7CE99ACE-7A05-478D-9324-E0C615838489}
 		{FA7630A5-6055-4983-BA21-A994F59C72A2} = {7CE99ACE-7A05-478D-9324-E0C615838489}
 		{EDC41744-38D8-461D-8975-B38E43F1CF2A} = {7CE99ACE-7A05-478D-9324-E0C615838489}
+		{22BFB87C-CA05-444E-97DE-4505849B740B} = {7CE99ACE-7A05-478D-9324-E0C615838489}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2EBB05AC-C95B-415D-946F-185C79D594E7}
