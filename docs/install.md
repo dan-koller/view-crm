@@ -58,7 +58,7 @@ Rebuild the project to update the references using `dotnet build` in the `View.W
 4. Install the dependencies for the frontend
 
 ```
-cd src/View.Webapp
+cd src/View.Webapp/ClientApp
 npm i
 ```
 
@@ -73,6 +73,7 @@ npm i
 -   Linux/macOS:
 
 ```sh
+chmod +x ./start.sh
 ./start.sh
 ```
 
@@ -80,4 +81,14 @@ npm i
 
 ```
 http://localhost:5000
+```
+
+## Testing
+
+Testing is done using [xUnit](https://xunit.net/). The tests are located in the `View.UnitTests` project.
+
+To run the tests, navigate to the `View.UnitTests` directory and run the following command:
+
+```
+dotnet test
 ```
