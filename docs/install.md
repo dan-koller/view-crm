@@ -58,7 +58,7 @@ Rebuild the project to update the references using `dotnet build` in the `View.W
 4. Install the dependencies for the frontend
 
 ```
-cd src/View.Webapp/ClientApp
+cd src/View.React/ClientApp
 npm i
 ```
 
