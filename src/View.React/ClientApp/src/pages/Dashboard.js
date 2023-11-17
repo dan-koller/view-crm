@@ -25,7 +25,7 @@ const DashBoard = ({ isClosedPage }) => {
                             documentId: key,
                         };
                         return formattedData;
-                    });
+                    }).sort((a, b) => a.id - b.id); // Sort ascending by id
                     setTickets(formattedArray);
                 }
             } catch (error) {
@@ -57,8 +57,8 @@ const DashBoard = ({ isClosedPage }) => {
     // Function to filter tickets by title
     const filteredTickets = tickets
         ? tickets.filter((ticket) =>
-              ticket.title.toLowerCase().includes(searchQuery.toLowerCase())
-          )
+            ticket.title.toLowerCase().includes(searchQuery.toLowerCase())
+        )
         : [];
 
     return (
