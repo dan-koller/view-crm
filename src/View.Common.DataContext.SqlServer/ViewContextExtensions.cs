@@ -13,7 +13,7 @@ namespace View.Shared
         /// <returns>An IServiceCollection that can be used to add more services.</returns>
         public static IServiceCollection AddViewContext(
           this IServiceCollection services,
-          string connectionString = "Data Source=.;Initial Catalog=View;" +
+          string connectionString = "Data Source=.;Initial Catalog=Tickets;" +
             "Integrated Security=true;MultipleActiveResultsets=true;Encrypt=false")
         {
             services.AddDbContext<ViewContext>(options =>

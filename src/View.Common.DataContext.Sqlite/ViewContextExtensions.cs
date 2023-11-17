@@ -14,7 +14,7 @@ namespace View.Shared
         /// <returns>An IServiceCollection that can be used to add more services.</returns>
         public static IServiceCollection AddViewContext(
           this IServiceCollection services, string relativePath = "..",
-          string databaseFilename = "View.db")
+          string databaseFilename = "Tickets.db")
         {
             string databasePath = Path.Combine(relativePath, databaseFilename);
 

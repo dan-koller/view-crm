@@ -27,7 +27,7 @@ namespace View.Shared
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=View;Integrated Security=true;Encrypt=false;");
+                optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=Tickets;Integrated Security=true;Encrypt=false;");
             }
         }
     }

@@ -33,12 +33,12 @@ namespace View.Shared
                 if (dir.EndsWith("net7.0"))
                 {
                     // Running in the <project>\bin\<Debug|Release>\net7.0 directory.
-                    path = Path.Combine("..", "..", "..", "..", "View.db");
+                    path = Path.Combine("..", "..", "..", "..", "Tickets.db");
                 }
                 else
                 {
                     // Running in the <project> directory.
-                    path = Path.Combine("..", "View.db");
+                    path = Path.Combine("..", "Tickets.db");
                 }
 
                 optionsBuilder.UseSqlite($"Filename={path}");
