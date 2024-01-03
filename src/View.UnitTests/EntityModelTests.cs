@@ -1,5 +1,6 @@
-namespace View.UnitTests;
 using View.Shared; // ViewContext, UserContext, Ticket
+
+namespace View.UnitTests;
 
 /*
  * Tests are performed using xUnit.net. However, to run the tests in a specific
