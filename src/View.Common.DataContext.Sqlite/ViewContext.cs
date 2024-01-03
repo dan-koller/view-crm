@@ -30,9 +30,9 @@ namespace View.Shared
                 string dir = Environment.CurrentDirectory;
                 string path = string.Empty;
 
-                if (dir.EndsWith("net7.0"))
+                if (dir.EndsWith("net8.0"))
                 {
-                    // Running in the <project>\bin\<Debug|Release>\net7.0 directory.
+                    // Running in the <project>\bin\<Debug|Release>\net8.0 directory.
                     path = Path.Combine("..", "..", "..", "..", "Tickets.db");
                 }
                 else

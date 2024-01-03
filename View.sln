@@ -1,4 +1,4 @@
-﻿Microsoft Visual Studio Solution File, Format Version 12.00
+Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View.Common.UserDataContext
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7CE99ACE-7A05-478D-9324-E0C615838489}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "View.UnitTests", "src\View.UnitTests\View.UnitTests.csproj", "{22BFB87C-CA05-444E-97DE-4505849B740B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View.UnitTests", "src\View.UnitTests\View.UnitTests.csproj", "{22BFB87C-CA05-444E-97DE-4505849B740B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
