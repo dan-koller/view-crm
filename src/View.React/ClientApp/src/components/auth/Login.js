@@ -55,11 +55,11 @@ class Login extends Component {
                 // Username
                 const email =
                     decodedToken[
-                        "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"
+                    "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"
                     ];
                 const role =
                     decodedToken[
-                        "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+                    "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
                     ];
                 const user = { name, email, role, token };
 

@@ -1,4 +1,4 @@
-export const ApplicationName = 'ViewBoard.React';
+export const ApplicationName = 'View.React';
 
 export const QueryParameterNames = {
   ReturnUrl: 'returnUrl',
