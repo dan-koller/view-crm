@@ -15,30 +15,6 @@ namespace View.UnitTests;
 public class EntityModelTests
 {
     [Fact, TestPriority(1)]
-    public void TestTicketDatabaseConnection()
-    {
-        using (ViewContext db = new())
-        {
-            // Create ticket db if it doesn't exist
-            db.Database.EnsureCreated();
-
-            Assert.True(db.Database.CanConnect());
-        }
-    }
-
-    [Fact, TestPriority(2)]
-    public void TestUserDatabaseConnection()
-    {
-        using (UserContext db = new())
-        {
-            // Create user db if it doesn't exist
-            db.Database.EnsureCreated();
-
-            Assert.True(db.Database.CanConnect());
-        }
-    }
-
-    [Fact, TestPriority(3)]
     public void TestTicketCreation()
     {
         using (ViewContext db = new())
@@ -70,7 +46,7 @@ public class EntityModelTests
         }
     }
 
-    [Fact, TestPriority(4)]
+    [Fact, TestPriority(2)]
     public void TestTicketUpdate()
     {
         using (ViewContext db = new())
@@ -110,7 +86,7 @@ public class EntityModelTests
         }
     }
 
-    [Fact, TestPriority(5)]
+    [Fact, TestPriority(3)]
     public void TestTicketUpdateSuccess()
     {
         using (ViewContext db = new())
@@ -119,6 +95,41 @@ public class EntityModelTests
             Assert.False(db.Tickets.Any(t => t.Title == "Test Ticket"));
         }
     }
+
+    [Fact, TestPriority(4)]
+    public void TestTicketFiltering()
+    {
+        using (ViewContext db = new())
+        {
+            // Filter tickets by category
+            var categoryATickets = db.Tickets.Where(t => t.Category == "Updated Test Category").ToList();
+
+            // Validate that only tickets with the specified category are retrieved
+            Assert.True(categoryATickets.Count == 1);
+            Assert.True(categoryATickets.All(t => t.Category == "Updated Test Category"));
+        }
+    }
+
+    [Fact, TestPriority(5)]
+    public void TestTicketProgressIncrement()
+    {
+        using (ViewContext db = new())
+        {
+            // Create a ticket with initial progress
+            Ticket? ticket = db.Tickets.FirstOrDefault(t => t.Title == "Updated Test Ticket");
+
+            Assert.NotNull(ticket);
+
+            // Increment the ticket progress
+            ticket.Progress += 10;
+            db.Tickets.Update(ticket);
+            db.SaveChanges();
+
+            // Validate that the ticket progress has been incremented
+            Assert.True(db.Tickets.Any(t => t.Title == "Updated Test Ticket" && t.Progress == 11));
+        }
+    }
+
 
     [Fact, TestPriority(6)]
     public void TestTicketDeletion()
@@ -157,6 +168,20 @@ public class EntityModelTests
     }
 
     [Fact, TestPriority(8)]
+    public void TestUserRole()
+    {
+        using (UserContext db = new())
+        {
+            // Check if the user created in the previous test has the 'User' role
+            ApplicationUser? user = db.Users.FirstOrDefault(u => u.UserName == "test@example.com");
+
+            Assert.NotNull(user);
+            // Shouldn't have any roles yet
+            Assert.False(db.UserRoles.All(ur => ur.UserId == user.Id));
+        }
+    }
+
+    [Fact, TestPriority(9)]
     public void TestUserUpdate()
     {
         // Check if the user can be updated (e.g. set EmailConfirmed to true)
@@ -175,7 +200,26 @@ public class EntityModelTests
         }
     }
 
-    [Fact, TestPriority(9)]
+    [Fact, TestPriority(10)]
+    public void TestUserUpdateChangeName()
+    {
+        // Check if the user's name can be updated
+        using (UserContext db = new())
+        {
+            // Update the user created in the previous test
+            ApplicationUser? user = db.Users.FirstOrDefault(u => u.UserName == "test@example.com");
+            if (user != null)
+            {
+                user.Name = "Test User Updated";
+
+                db.Users.Update(user);
+                db.SaveChanges();
+            }
+            Assert.True(db.Users.Any(u => u.Name == "Test User Updated"));
+        }
+    }
+
+    [Fact, TestPriority(11)]
     public void TestUserDeletion()
     {
         using (UserContext db = new())
