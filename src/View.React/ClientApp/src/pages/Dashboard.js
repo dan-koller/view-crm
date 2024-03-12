@@ -4,7 +4,7 @@ import CategoriesContext from "../context";
 import { api } from "../components/misc/Api";
 import { Input } from "reactstrap";
 
-const DashBoard = ({ isClosedPage }) => {
+const Dashboard = ({ isClosedPage }) => {
     const [tickets, setTickets] = useState(null);
     const { categories, setCategories } = useContext(CategoriesContext);
 
@@ -99,4 +99,4 @@ const DashBoard = ({ isClosedPage }) => {
     );
 };
 
-export default DashBoard;
+export default Dashboard;
