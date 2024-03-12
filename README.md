@@ -1,5 +1,7 @@
 # View CRM
 
+> Note: This project was created in order to learn more about the .NET ecosystem and is not intended for production use. I also do not plan to maintain this project.
+
 View is a customer relationship management tool that allows users to track their projects. Users can create, edit, and delete projects and clients. Users can also add notes to projects.
 
 View supports user authentication and authorization and basic updates to the users profile. Users can also view all of their projects and clients on their dashboard.
